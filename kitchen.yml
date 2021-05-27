@@ -1,32 +1,38 @@
 ---
 driver:
   name: vagrant
+  customize:
+    cpus: 2
+    memory: 4096
 
-## The forwarded_port port feature lets you connect to ports on the VM guest via
-## localhost on the host.
-## see also: https://www.vagrantup.com/docs/networking/forwarded_ports
-
-#  network:
-#    - ["forwarded_port", {guest: 80, host: 8080}]
+transport:
+  name: winrm
+  elevated: true
 
 provisioner:
   name: chef_zero
-
-  ## product_name and product_version specifies a specific Chef product and version to install.
-  ## see the Chef documentation for more details: https://docs.chef.io/workstation/config_yml_kitchen/
-  #  product_name: chef
-  #  product_version: 16
+  deprecations_as_errors: true
+  product_name: chef
+  product_version: 14.7
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-20.04
-  - name: centos-8
+  - name: windows-8.1
+    driver:
+      box: chef/windows-8.1-enterprise
+  - name: windows-10
+    driver:
+      box: chef/windows-10-enterprise
+  - name: windows-2012r2
+    driver:
+      box: tas50/windows_2012r2
+  - name: windows-2016
+    driver:
+      box: tas50/windows_2016
+  - name: windows-2019
+    driver:
+      box: tas50/windows_2019
 
 suites:
-  - name: default
-    verifier:
-      inspec_tests:
-        - test/integration/default
-    attributes:
