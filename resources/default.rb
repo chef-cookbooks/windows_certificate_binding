@@ -20,14 +20,53 @@
 #
 
 provides :windows_certificate_binding
+
+description 'Use the **windows_certificate_binding** resource to bind a certificate from the Windows Certificate Store to a port to enable TLS communication.'
+introduced '1.0'
+examples <<~DOC
+**Bind a certificate from the personal store matching the subject 'me.acme.com' to the default HTTPS port**
+```ruby
+windows_certificate_binding 'me.acme.com'
+```
+
+**Bind to a custom app ID instead of using the IIS default**
+```ruby
+windows_certificate_binding 'me.acme.com' do
+  app_id "{12345678-e14b-4a21-b022-59fc669b0914}"
+end
+```
+
+**Bind to a port other than 443**
+```ruby
+windows_certificate_binding 'me.acme.com' do
+  port 4334
+end
+```
+
+**Bind a certificate from the CA store using the hash as the identifier**
+```ruby
+windows_certificate_binding "me.acme.com" do
+    cert_name "d234567890a23f567c901e345bc8901d34567890"
+    name_kind :hash
+    store_name 'CA'
+end
+```
+DOC
+
 unified_mode true if respond_to?(:unified_mode)
 
-property :cert_name, String, name_property: true
-property :name_kind, Symbol, equal_to: [:hash, :subject], default: :subject
-property :address, String, default: '0.0.0.0'
-property :port, Integer, default: 443
-property :app_id, String, default: '{4dc3e181-e14b-4a21-b022-59fc669b0914}'
-property :store_name, String, default: 'MY', equal_to: ['TRUSTEDPUBLISHER', 'CLIENTAUTHISSUER', 'REMOTE DESKTOP', 'ROOT', 'TRUSTEDDEVICES', 'WEBHOSTING', 'CA', 'AUTHROOT', 'TRUSTEDPEOPLE', 'MY', 'SMARTCARDROOT', 'TRUST']
+property :cert_name, String, name_property: true, description: 'The thumbprint(hash) or subject that identifies the certificate to be bound.'
+
+property :name_kind, Symbol, equal_to: %i(hash subject), default: :subject, description: 'The type of identifer to match the `cert_name` to. ``:hash` to match by a certificate hash or `:subject` to match by the certificate subject.'
+
+property :address, String, default: '0.0.0.0', description: 'The address to bind the certificate to. This can be an IPv4 IP `1.2.3.4`, IPv6 IP `[::1]`, or a hostname `example.com`.', default_description: '`0.0.0.0`: all IPv4 addresses'
+
+property :port, Integer, default: 443, description: 'The port to bind the certificate to.'
+
+property :app_id, String, default: '{4dc3e181-e14b-4a21-b022-59fc669b0914}', description: 'The GUID that defines the application that owns the binding.', default_description: '{4dc3e181-e14b-4a21-b022-59fc669b0914} (the IIS GUID)'
+
+property :store_name, String, default: 'MY', equal_to: ['TRUSTEDPUBLISHER', 'CLIENTAUTHISSUER', 'REMOTE DESKTOP', 'ROOT', 'TRUSTEDDEVICES', 'WEBHOSTING', 'CA', 'AUTHROOT', 'TRUSTEDPEOPLE', 'MY', 'SMARTCARDROOT', 'TRUST'], description: 'The certificate store to load the certificate from.', default_description: '`MY`: The personal certificate store of the running user.'
+
 property :exists, [true, false]
 
 load_current_value do |desired|
