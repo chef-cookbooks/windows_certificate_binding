@@ -19,6 +19,7 @@
 # limitations under the License.
 #
 
+provides :windows_certificate_binding
 unified_mode true if respond_to?(:unified_mode)
 
 property :cert_name, String, name_property: true
