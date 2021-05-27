@@ -53,11 +53,11 @@ def address_mode(address)
   address.match(/(\d+\.){3}\d+|\[.+\]/).nil? ? 'hostnameport' : 'ipport'
 end
 
+# account for Window's wacky File System Redirector
+# http://msdn.microsoft.com/en-us/library/aa384187(v=vs.85).aspx
+# especially important for 32-bit processes (like Ruby) on a
+# 64-bit instance of Windows.
 def netsh_command
-  # account for Window's wacky File System Redirector
-  # http://msdn.microsoft.com/en-us/library/aa384187(v=vs.85).aspx
-  # especially important for 32-bit processes (like Ruby) on a
-  # 64-bit instance of Windows.
   if ::File.exist?("#{ENV['WINDIR']}\\sysnative\\netsh.exe")
     "#{ENV['WINDIR']}\\sysnative\\netsh.exe"
   elsif ::File.exist?("#{ENV['WINDIR']}\\system32\\netsh.exe")
