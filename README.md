@@ -1,6 +1,6 @@
 # windows_certificate_binding Cookbook
 
-Provides a set of Windows-specific resources to aid in the creation of cookbooks/recipes targeting the Windows platform.
+Binds a certificate to an HTTP port to enable TLS communication on Windows systems.
 
 ## Requirements
 
@@ -21,8 +21,6 @@ Provides a set of Windows-specific resources to aid in the creation of cookbooks
 ## Resources
 
 ### windows_certificate_binding
-
-Binds a certificate to an HTTP port to enable TLS communication.
 
 #### Actions
 
