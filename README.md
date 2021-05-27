@@ -57,17 +57,16 @@ Binds a certificate to an HTTP port to enable TLS communication.
 
 ```ruby
 # Bind the first certificate matching the subject to the default TLS port
-windows_certificate_binding "me.acme.com" do
-end
+windows_certificate_binding 'me.acme.com'
 ```
 
 ```ruby
 # Bind a cert from the CA store with the given hash to port 4334
-windows_certificate_binding "me.acme.com" do
-    cert_name    "d234567890a23f567c901e345bc8901d34567890"
-    name_kind    :hash
-    store_name    "CA"
-    port        4334
+windows_certificate_binding 'me.acme.com' do
+  cert_name 'd234567890a23f567c901e345bc8901d34567890'
+  name_kind :hash
+  store_name 'CA'
+  port 4334
 end
 ```
 
@@ -77,11 +76,10 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-```
