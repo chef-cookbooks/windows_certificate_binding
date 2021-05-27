@@ -1,7 +1,7 @@
 name 'windows_certificate_binding'
 maintainer 'Chef Software, Inc.'
 maintainer_email 'cookbooks@chef.io'
-license 'Apache-2.0''
+license 'Apache-2.0'
 description 'Chef Infra cookbook for binding certificates to ports on Windows Hosts'
 version '1.0'
 supports 'windows'
