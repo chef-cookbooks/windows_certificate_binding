@@ -12,9 +12,9 @@ transport:
 provisioner:
   name: chef_zero
   log_level: :info
-#  deprecations_as_errors: true
-#  product_name: chef
-#  product_version: 14.7
+  deprecations_as_errors: true
+  product_name: chef
+  product_version: 14.7
 
 verifier:
   name: inspec
