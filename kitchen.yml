@@ -11,9 +11,10 @@ transport:
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: true
-  product_name: chef
-  product_version: 14.7
+  log_level: :info
+#  deprecations_as_errors: true
+#  product_name: chef
+#  product_version: 14.7
 
 verifier:
   name: inspec
@@ -36,3 +37,6 @@ platforms:
       box: tas50/windows_2019
 
 suites:
+  - name: certificate_binding
+    run_list:
+      - recipe[test::certificate_binding]
