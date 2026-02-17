@@ -1,1 +1,1 @@
-Copyright (c) 2021-2021 Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.
+Copyright (c) 2021 Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.
